@@ -1,6 +1,6 @@
 # AdventOfCode
 
-Solutions for [Advent of Code](http://adventofcode.com/) written in Swift (or when python when swift isn't playing nicely)
+Solutions for [Advent of Code](http://adventofcode.com/) written in Swift (or python when swift isn't playing nicely)
 
 
 ## Build Instructions
@@ -23,5 +23,7 @@ Solutions for [Advent of Code](http://adventofcode.com/) written in Swift (or wh
 4. The built products can then be found in the `.build` directory. Run the program with the following command:
 
     ```sh
-    .build/debug/AdventOfCode \[1-25\]
+    .build/debug/AdventOfCode [1-25]
     ```
+
+Note that `[1-25]` specifies the day you wish to view the output for.
