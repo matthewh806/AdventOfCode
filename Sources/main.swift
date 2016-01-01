@@ -24,18 +24,30 @@ if( Process.arguments.count != 2) {
         print("Day03: PartOne: \(Day03().partOne()), PartTwo \(Day03().partTwo())")
         break
     case "4", "04":
+        print("Day04: TestCode: \(Day04().testCode())")
+        print("Day04: PartOne: \(Day04().partOne()), PartTwo \(Day04().partTwo())")
         break
     case "5", "05":
+        print("Day05: TestCode: \(Day05().testCode())")
+        print("Day05: PartOne: \(Day05().partOne()), PartTwo \(Day05().partTwo())")
         break
     case "6", "06":
+        print("Day06: TestCode: \(Day06().testCode())")
+        print("Day06: PartOne: \(Day06().partOne()), PartTwo \(Day06().partTwo())")
         break
     case "7", "07":
         break
     case "8", "08":
+        print("Day08: TestCode: \(Day08().testCode())")
+        print("Day08: PartOne: \(Day08().partOne()), PartTwo \(Day08().partTwo())")
         break
     case "9", "09":
+        print("Day09: TestCode: \(Day09().testCode())")
+        print("Day09: PartOne: \(Day09().partOne()), PartTwo \(Day09().partTwo())")
         break
     case "10":
+        print("Day10: TestCode: \(Day10().testCode())")
+        print("Day10: PartOne: \(Day10().partOne()), PartTwo \(Day10().partTwo())")
         break
     case "11":
         print("Day11: PartOne: \(Day11().partOne()), PartTwo \(Day11().partTwo())")

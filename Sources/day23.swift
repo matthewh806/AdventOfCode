@@ -20,5 +20,4 @@ class Day23: Day {
     func testCode() -> String {
         return ""
     }
-
 }
