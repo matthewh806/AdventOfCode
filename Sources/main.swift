@@ -57,6 +57,8 @@ if( Process.arguments.count != 2) {
         print("Day12: PartOne: \(Day12().partOne()), PartTwo \(Day12().partTwo())")
         break
     case "13":
+        print("Day13: TestCode: \(Day13().testCode())")
+        print("Day13: PartOne: \(Day13().partOne()), PartTwo \(Day13().partTwo())")
         break
     case "14":
         print("Day14: TestCode: \(Day14().testCode())")
