@@ -108,10 +108,14 @@ class Day21: Day {
         }
     }
     
-    class character {
+    class character : CustomStringConvertible {
         var hp: Int
         var damage: Int = 0
         var armor: Int = 0
+        
+        var description: String {
+            return "hp: \(hp), dmg: \(damage), armor: \(armor)"
+        }
         
         init(hp: Int, damage: Int, armor: Int) {
             self.hp = hp
@@ -119,12 +123,24 @@ class Day21: Day {
             self.armor = armor
         }
         
+        convenience init(char: character) {
+            self.init(hp: char.hp, damage: char.damage, armor: char.armor)
+        }
+        
+        func copy() -> character {
+            return character(char: self)
+        }
+        
+        func takeTurn(enemy: character) {
+            attack(enemy)
+        }
+        
         func attack(enemy: character) {
-            enemy.takeDamage(self.damage >= enemy.armor ? self.damage - enemy.armor : 1)
+            enemy.takeDamage(self.damage - enemy.armor)
         }
         
         func takeDamage(amount: Int) {
-            hp -= amount
+            hp -= ( amount < 1 ? 1 : amount)
         }
         
         func alive() -> Bool {

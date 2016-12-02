@@ -10,20 +10,22 @@ import Foundation
 
 class Day12: Day {
     
-    let jsonString = try! String(contentsOfFile:"/Users/matthew/Projects/swift/advent-of-code/AdventOfCode/AdventOfCode/Input/day12.txt", encoding: NSUTF8StringEncoding)
+    let jsonString = try! String(contentsOfFile:"/Users/matthew/Projects/swift/AdventOfCode/AdventOfCode/Input/day12.txt", encoding: NSUTF8StringEncoding)
     
     func partOne() -> String {
-        return "\(sumDigits(jsonString))"
+        //return "\(sumDigits(jsonString))"
+        return ""
     }
     
     func partTwo() -> String {
+        //return ""
         return "\(sumDigits(jsonString, skipRed: true))"
     }
     
     func testCode() -> String {
         let testStrings1 = ["[1,2,3]", "{\"a\":2,\"b\":4}", "[[[3]]]", "{\"a\":{\"b\":4},\"c\":-1}", "{\"a\":[-1,1]}", "[-1,{\"a\":1}]", "[]", "{}"]
         let testStrings2 = ["[1,2,3]", "[1,{\"c\":\"red\",\"b\":2},3]", "{\"d\":\"red\",\"e\":[1,2,3,4],\"f\":5}", "[1,\"red\",5]",
-                            "{\"e\":171,\"a\":{\"e\":\"green\",\"c\":49,\"a\":\"orange\",\"g\":22,\"b\":\"violet\",\"d\":\"orange\",\"f\":\"orange\"},\"d\":\"red\",\"c\":113,\"h\":\"green\",\"b\":[30,\"blue\"],\"g\":{\"a\":139,\"b\":47},\"f\":\"red\",\"i\":\"red\"}"]
+                            "{\"e\":171,\"a\":{\"e\":\"green\",\"c\":49,\"a\":\"orange\",\"g\":22,\"b\":\"violet\",\"d\":\"orange\",\"f\":\"orange\"},\"d\":\"red\",\"c\":113,\"h\":\"green\",\"b\":[30,\"blue\"],\"g\":{\"a\":139,\"b\":47},\"f\":\"red\",\"i\":\"red\"}", "{\"a\":139,\"b\":47},\"i\":\"red}"]
         var rtnStrPart1 = ""
         var rtnStrPart2 = ""
         for testString in testStrings1 {
@@ -40,22 +42,13 @@ class Day12: Day {
         var mutableStr = str
         
         if(skipRed) {
-            while ((mutableStr =~ "\\{[^\\{]*:\"red\"[^\\}]*\\}").items.count > 0) {
+            repeat {
                 let regex = try! NSRegularExpression(pattern: "\\{[^\\{]*:\"red\"[^\\}]*\\}", options: NSRegularExpressionOptions.CaseInsensitive)
                 let strRange: Range<String.Index> = mutableStr.startIndex..<mutableStr.endIndex
                 mutableStr = regex.stringByReplacingMatchesInString(mutableStr, options: [], range: mutableStr.NSRangeFromRange(strRange), withTemplate: "")
-            }
+            } while((mutableStr =~ "\\{[^\\{]*:\"red\"[^\\}]*\\}").items.count > 0)
+            //print(mutableStr)
         }
-        
         return "\((mutableStr =~ "(\\-?\\d+)").items.map{ Int($0) ?? 0 }.reduce(0) { $0 + $1})"
-    }
-}
-
-extension String {
-    func NSRangeFromRange(range : Range<String.Index>) -> NSRange {
-        let utf16view = self.utf16
-        let from = String.UTF16View.Index(range.startIndex, within: utf16view)
-        let to = String.UTF16View.Index(range.endIndex, within: utf16view)
-        return NSMakeRange(utf16view.startIndex.distanceTo(from), from.distanceTo(to))
     }
 }
