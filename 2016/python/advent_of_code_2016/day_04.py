@@ -22,8 +22,31 @@ def parse_room_data(data):
 def get_sector_id_sum(data):
     return sum([parse_room_data(d)[1] for d in data if is_room_real(d)])
 
+def get_real_rooms(data):
+    return [parse_room_data(d) for d in data if is_room_real(d)]
+
+def decrypt_cipher(cipher_text, shift):
+    cipher_text = cipher_text.replace('-', ' ')
+    shift = shift % 26
+    decrypted_chars = []
+
+    for c in cipher_text:
+        if c == ' ':
+            decrypted_chars.append(c)
+            continue
+
+        x = ord(c) + shift
+        decrypted_chars.append(chr(x if 97<= x <=122 else 96+x%122))
+
+    return "".join(decrypted_chars)
+
 if __name__ == "__main__":
     with open(INPUT_DIR + 'day_04.txt') as f:
         input_data = [line.rstrip('\n') for line in f]
 
-    print get_sector_id_sum(input_data)
+    sector_id = get_sector_id_sum(input_data)
+    real_rooms = get_real_rooms(input_data)
+
+    decrypted_rooms = [(decrypt_cipher(r[0], r[1]), r[1]) for r in real_rooms]
+    print decrypted_rooms
+
