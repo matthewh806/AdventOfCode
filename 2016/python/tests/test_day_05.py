@@ -1,5 +1,5 @@
 from advent_of_code_2016.day_05 import generate_hash_with_n_leading_zeros,\
-                                        get_door_code
+                                        get_door_code, get_positional_door_code
 
 test_door_id = 'abc'
 
@@ -23,4 +23,9 @@ def test_get_door_code():
     door_code = get_door_code(test_door_id, 8)
 
     assert door_code == '18f47a30'
+
+def test_get_positional_door_code():
+    door_code = get_positional_door_code(test_door_id, 8)
+
+    assert door_code == '05ace8e3'
 
