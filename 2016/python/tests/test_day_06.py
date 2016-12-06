@@ -9,3 +9,6 @@ def get_test_input():
 def test_get_error_corrected_message():
     res = get_error_corrected_message(get_test_input()) 
     assert res == "easter"
+
+    res2 = get_error_corrected_message(get_test_input(), False)
+    assert res2 == "advent"
