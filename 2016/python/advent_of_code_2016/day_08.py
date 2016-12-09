@@ -27,6 +27,13 @@ class Screen:
         elif inst.startswith('rotate row'):
             self.rotate_row(digits[0], digits[1])
 
+    def pretty_print(self):
+        s = ""
+        for x in self.array:
+            s+="".join(['#' if y==1 else '.' for y in x])
+            s+='\n'
+        return s
+
 if __name__ == "__main__":
     with open(INPUT_DIR + 'day_08.txt') as f:
         data = [l.strip('\n') for l in f]
@@ -36,4 +43,4 @@ if __name__ == "__main__":
         s.parse_instruction(i)
 
     print s.lit_pixels_count()
-
+    print s.pretty_print()
