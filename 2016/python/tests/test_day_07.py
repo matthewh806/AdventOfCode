@@ -1,6 +1,7 @@
 from advent_of_code_2016.day_07 import parse_ip_address, \
                                        check_ip_supports_tls, check_for_abba, \
-                                       is_palindrome
+                                       is_palindrome, \
+                                       get_aba_sequences, check_ip_supports_ssl
 
 t1 = 'abba[mnop]qrst'
 t2 = 'abcd[bddb]xyyx'
@@ -45,4 +46,18 @@ def test_check_ip_supports_tls():
     assert not check_ip_supports_tls(t3)
     assert check_ip_supports_tls(t4)
     assert not check_ip_supports_tls(t5)
+
+def test_check_for_aba():
+    assert get_aba_sequences('aba')[0] == 'aba'
+    assert len(get_aba_sequences('aaa')) == 0 
+    assert len(get_aba_sequences('a')) == 0
+    assert len(get_aba_sequences('abba')) == 0
+    assert len(get_aba_sequences('zazbz')) == 2
     
+def test_check_ip_supports_ssl():
+    assert check_ip_supports_ssl('aba[bab]xyz')
+    assert not check_ip_supports_ssl('xyx[xyx]xyx')
+    assert check_ip_supports_ssl('aaa[kek]eke')
+    assert not check_ip_supports_ssl('aaa[aaa]eke')
+    assert check_ip_supports_ssl('zazbz[bzb]cdb')
+    assert not check_ip_supports_ssl('gdlrknrmexvaypu[crqappbbcaplkkzb]vhvkjyadjsryysvj[nbvypeadikilcwg]jwxlimrgakadpxu[dgoanojvdvwfabtt]yqsalmulblolkgsheo')
