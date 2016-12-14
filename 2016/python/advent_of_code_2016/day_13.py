@@ -22,7 +22,7 @@ class Maze():
         return [m for m in moves if m[0] >= 0 and m[1] >= 0 and not
                 self.is_wall(m[0],m[1])]
 
-    def shortest_route(self, target_x, target_y):
+    def shortest_route(self, target_x, target_y, max_steps=None):
         node = Node((self.x, self.y), [])
         goal = (target_x, target_y)
 
@@ -34,13 +34,18 @@ class Maze():
 
         while not frontier.empty():
             node = frontier.get()
+
+            if max_steps and len(node.path) > max_steps:
+                return explored
+
             if node.state==goal: return node.path
 
             if not node.state in explored:
                 explored.add(node.state)
-
                 [frontier.put(Node(l, node.path + [l])) for l in self.get_valid_moves(node.state[0],
                                                              node.state[1])]
+    def max_distinct_locations(self, n_steps):
+        return self.shortest_route(-1, -1, 50) 
 
     def pretty_print(size_x, size_y):
         pass
@@ -50,3 +55,5 @@ if __name__=="__main__":
 
     m = Maze(1,1,1350)
     print len(m.shortest_route(31,39))
+    print (m.max_distinct_locations(50))
+    print len(m.max_distinct_locations(50))
