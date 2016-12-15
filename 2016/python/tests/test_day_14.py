@@ -36,3 +36,15 @@ def test_generate_md5_hashes_sixty_four():
     h, idx = day_14.generate_md5_hashes('abc', 64)
     assert len(h) == 64
     assert idx==22728 
+
+def test_get_stretched_md5_hash():
+    h = day_14.get_stretched_md5_hash('577571be4de9dcce85a041ba0410f29f')
+    assert h == 'a107ff634856bb300138cac6568c0f24'
+
+def test_generate_md5_hashes_one_with_stretching():
+    h, idx = day_14.generate_md5_hashes('abc', 1, -1, True)
+    assert idx == 10 
+
+def test_generate_md5_hashes_sixty_four_with_stretching():
+    h, idx = day_14.generate_md5_hashes('abc', 64, -1, True)
+    assert idx == 22551 
