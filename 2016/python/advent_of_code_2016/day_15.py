@@ -38,4 +38,7 @@ def run(data):
 
 if __name__=="__main__":
     data = get_input(15)
-    run(data)
+    print run(data)
+
+    data.append('Disc #7 has 11 positions; at time=0, it is at position 0.')
+    print run(data)
