@@ -26,3 +26,4 @@ if __name__ == "__main__":
     disk_size = 272
 
     print generate_checksum(puzzle_input, disk_size)
+    print generate_checksum(puzzle_input, 35651584)
