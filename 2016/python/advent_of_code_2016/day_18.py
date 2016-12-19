@@ -34,3 +34,4 @@ if __name__ == "__main__":
         data = f.read()
 
     print count_safe_tiles(generate_trap_map(data, 40))
+    print count_safe_tiles(generate_trap_map(data, 40000))
