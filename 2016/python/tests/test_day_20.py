@@ -11,3 +11,8 @@ def test_get_sorted_intervals():
 def test_get_smallest_allowed_ip():
     i = get_smallest_allowed_ip(get_test_input(20), 0, 9)
     assert i == 3 
+
+def test_get_allowed_ip_count():
+    assert get_allowed_ip_count(get_test_input(20), 9) == 2
+
+    assert False
