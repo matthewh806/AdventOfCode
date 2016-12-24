@@ -44,26 +44,31 @@ class Grid():
         if y1 == y2:
             return 'L' if x2 < x1 else 'R'
 
-    def shortest_route(self, goal):
+    def get_goal_paths(self, goal):
         node = Node((0, 0), [])
+        routes = []
 
-        if node.state == goal: return "".join(node_path)
+        if node.state == goal: return routes.append("".join(node.path))
         
         frontier = Queue.Queue()
         frontier.put(node)
         
         while not frontier.empty():
             node = frontier.get()
-            if node.state == goal: return "".join(node.path)
+            if node.state == goal: 
+                routes.append("".join(node.path))
+                continue
             valid_moves = self.get_valid_moves(node.state[0], node.state[1],
                                                node.path)
             for l in valid_moves:
                 frontier.put(Node(l, node.path + [self.get_dir(node.state,l)]))
-        return None
+        return routes
 
 
 if __name__=="__main__":
     puzzle_input='bwnlcvfs'
 
     g = Grid(4,4,'bwnlcvfs')
-    print g.shortest_route((3,3))
+    paths = g.get_goal_paths((3,3))
+    print paths[0]
+    print len(paths[-1])

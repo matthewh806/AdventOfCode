@@ -15,8 +15,11 @@ def test_grid_get_dir():
     assert test_grid.get_dir((2,2), (1,2)) == 'L'
 
 def test_shortest_route():
-    assert test_grid.shortest_route((3,3)) == None
-    
-    assert Grid(4,4, 'ihgpwlah').shortest_route((3,3)) == 'DDRRRD'
-    assert Grid(4,4, 'kglvqrro').shortest_route((3,3)) == 'DDUDRLRRUDRD'
-    assert Grid(4,4, 'ulqzkmiv').shortest_route((3,3)) == 'DRURDRUDDLLDLUURRDULRLDUUDDDRR'
+    assert Grid(4,4, 'ihgpwlah').get_goal_paths((3,3))[0] == 'DDRRRD'
+    assert Grid(4,4, 'kglvqrro').get_goal_paths((3,3))[0] == 'DDUDRLRRUDRD'
+    assert Grid(4,4, 'ulqzkmiv').get_goal_paths((3,3))[0] == 'DRURDRUDDLLDLUURRDULRLDUUDDDRR'
+
+def test_longest_route():
+    assert len(Grid(4,4, 'ihgpwlah').get_goal_paths((3,3))[-1]) == 370 
+    assert len(Grid(4,4, 'kglvqrro').get_goal_paths((3,3))[-1]) == 492 
+    assert len(Grid(4,4, 'ulqzkmiv').get_goal_paths((3,3))[-1]) == 830 
