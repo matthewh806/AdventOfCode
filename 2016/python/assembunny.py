@@ -1,12 +1,20 @@
 import re
 
+def is_digit(n):
+    try:
+        int(n)
+        return True
+    except ValueError:
+        return False
+
 class AssemBunny():
     def __init__(self, registers):
         self.registers = registers
 
     def copy(self, instr):
         _, v, reg = instr.split(' ')
-        self.registers[reg] = int(v) if str.isdigit(v) else self.registers[v] 
+        if not str.isalpha(reg): return
+        self.registers[reg] = int(v) if is_digit(v) else self.registers[v] 
         
     def increment(self, instr):
         _, reg = instr.split(' ')
@@ -30,8 +38,22 @@ class AssemBunny():
             elif i.startswith('jnz'):
                 _, reg, offset = i.split(' ')
 
+                if str.isalpha(offset): offset = self.registers[offset]
                 if str.isdigit(reg) or self.registers[reg] != 0:
                     idx+=int(offset)
                     continue
-
-            idx=idx+1
+            elif i.startswith('tgl'):
+                _, reg = i.split(' ')
+                tgl_idx = idx + self.registers[reg]
+                if tgl_idx >= len(instr):
+                    idx+=1
+                    continue
+                
+                tgl_instr = instr[tgl_idx].split(' ')
+                if len(tgl_instr) == 2:
+                    tgl_instr[0] = 'dec' if tgl_instr[0] == 'inc' else 'inc'
+                    instr[tgl_idx] = " ".join(tgl_instr)
+                elif len(tgl_instr) == 3:
+                    tgl_instr[0] = 'cpy' if tgl_instr[0] == 'jnz' else 'jnz'
+                    instr[tgl_idx] = " ".join(tgl_instr)
+            idx+=1
