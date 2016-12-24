@@ -1,6 +1,7 @@
 from read_input import get_input
 from collections import deque
 import re
+from itertools import *
 
 def swap_by_index(string, idx_1, idx_2):
     l = list(string)
@@ -64,8 +65,15 @@ def parse_instructions(input_str, instructions):
                                             int(split_str[5]))
     return scrambled_input
 
+
+def reverse_scramble_password(scrambled,instructions):
+    for p in permutations(scrambled):
+        if parse_instructions(p, instructions) == scrambled:
+            return "".join(p) 
+
 if __name__=="__main__":
     instructions = get_input(21)
     puzzle_input = 'abcdefgh'
 
     print parse_instructions(puzzle_input, instructions)
+    print reverse_scramble_password('fbgdceah', instructions)
