@@ -44,8 +44,24 @@ class Grid():
             name = re.search('node-x\d+-y\d+', nd).group(0)
             storage = re.findall('\d+T', nd)
             size, used, avail = [ int(s.strip('T')) for s in storage]
-            nodes[name] = Node(name, size, used, avail)
+            nodes[tuple(re.findall('\d+', name))] = Node(name, size, used, avail)
         return nodes
+
+    def visualize_grid(self):
+        coords = self.nodes.keys()
+        ordered_coords = sorted(coords, key=lambda el: (int(el[0]), int(el[1])))
+        rows, cols = zip(*ordered_coords)
+        n_rows = max([int(r) for r in rows]) + 1
+        n_cols = max([int(c) for c in cols]) + 1
+
+        grid = []
+        for i in range(0,n_rows):
+            for j in range(0, n_cols):
+                n = self.nodes[((str(i)),str(j))]
+                grid.append('%s/%s ' % (n.used, n.size))
+            grid.append('\n')
+
+        return "".join(grid)
 
 if __name__ == "__main__":
     puzzle_input = get_input(22)
@@ -53,3 +69,4 @@ if __name__ == "__main__":
     print n
     g = Grid(puzzle_input)
     print len(g.get_viable_pairs())
+    print g.visualize_grid()
