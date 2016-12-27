@@ -12,7 +12,7 @@ class AssemBunny():
         self.registers = registers
 
     def copy(self, instr):
-        _, v, reg = instr.split(' ')
+        _, v, reg = instr.split(' ')[:3]
         if not str.isalpha(reg): return
         self.registers[reg] = int(v) if is_digit(v) else self.registers[v] 
         
@@ -23,6 +23,10 @@ class AssemBunny():
     def decrement(self, instr):
         _, reg = instr.split(' ')
         self.registers[reg] -= 1 
+
+    def multiply(self, instr):
+        _, r1, r2, r3 = instr.split(' ')
+        self.registers[r3] = self.registers[r1] * self.registers[r2]
 
     def parse_instructions(self, instr):
         idx = 0
@@ -35,6 +39,8 @@ class AssemBunny():
                 self.increment(i)
             elif i.startswith('dec'):
                 self.decrement(i)
+            elif i.startswith('mul'):
+                self.multiply(i)
             elif i.startswith('jnz'):
                 _, reg, offset = i.split(' ')
 
