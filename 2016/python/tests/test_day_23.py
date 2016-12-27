@@ -10,7 +10,7 @@ def test_toggle_instruction():
 
 def test_multiply_instruction():
 	ab = AssemBunny({'a':0, 'b':3, 'c':5})
-	an.parse_instructions('mul b c a')
+	ab.parse_instructions(['mul b c a'])
 
 	assert ab.registers['a'] == 15
 	assert ab.registers['b'] == 3
