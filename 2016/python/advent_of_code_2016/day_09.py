@@ -28,6 +28,25 @@ def decompress_string(input_str):
 
     return input_str
 
+def decompress_length(input_str):
+    idx = 0
+    decompressed_length = 0
+
+    while idx < len(input_str):
+        matcher = re.compile(r'[(](\d+)x(\d+)[)]').match
+        m = matcher(input_str, idx)
+        if m:
+            chars, replace = map(int, m.groups())
+            idx = m.end(0)
+            decompressed_length += replace *\
+                    decompress_length(input_str[idx:idx+chars])
+            idx += chars
+        else:
+            decompressed_length += 1
+            idx += 1
+    return decompressed_length
+
+    return decompressed_length
 
 if __name__ == "__main__":
     with open(INPUT_DIR + 'day_09.txt') as f:
@@ -35,3 +54,4 @@ if __name__ == "__main__":
     
     output = "".join([decompress_string(d) for d in data])
     print len(output.replace(" ", ""))
+    print decompress_length("".join([d for d in data]))

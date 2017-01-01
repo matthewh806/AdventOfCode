@@ -1,4 +1,5 @@
-from advent_of_code_2016.day_09 import decompress_string, parse_marker
+from advent_of_code_2016.day_09 import decompress_string, parse_marker,\
+                                        decompress_length
 
 t1 = 'ADVENT'
 t2 = 'A(1x5)BC'
@@ -50,3 +51,10 @@ def test_marker_within_data_section():
 
     assert o3 == 'X(3x3)AB((3x3)AB(2x2)CY'
 
+def test_decompress_length():
+    assert decompress_length('(3x3)XYZ') == 9
+    assert decompress_length('X(8x2)(3x3)ABCY') == 20
+    assert False
+    assert decompress_length('(27x12)(20x12)(13x14)(7x10)(1x12)A') == 241920
+    assert decompress_length('(25x3)(3x3)ABC(2x3)XY(5x2)PQRSTX(18x9)(3x2)TWO(5x7)SEVEN')\
+            == 445
