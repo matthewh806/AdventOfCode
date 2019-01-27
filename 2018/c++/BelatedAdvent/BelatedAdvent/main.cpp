@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <set>
 #include <regex>
 
 int caclulate_resulting_frequency(const std::vector<int> in_operations, int f_0 = 0) {
@@ -17,6 +18,27 @@ int caclulate_resulting_frequency(const std::vector<int> in_operations, int f_0 
         f_0 += o;
     }
     
+    return f_0;
+}
+
+int find_first_repeat_frequency(const std::vector<int> in_operations, int f_0 = 0) {
+    
+    std::set<int> frequencies;
+    bool repeat = true;
+    
+    while(repeat) {
+        for(auto o:in_operations) {
+            f_0 += o;
+            
+            if(frequencies.find(f_0) != frequencies.end()) {
+                repeat = false; // or just break?
+                break;
+            }
+            frequencies.insert(f_0);
+        }
+    }
+    
+    // error
     return f_0;
 }
 
@@ -41,6 +63,7 @@ int main(int argc, const char * argv[]) {
     
     std::cout << "No. lines: " << num_lines << std::endl;
     std::cout << "Final frequency: " << caclulate_resulting_frequency(operations, starting_freq) << std::endl;
+    std::cout << "First repeated: " << find_first_repeat_frequency(operations, starting_freq) << std::endl;
     
     // TODO: Remember to close the file!
     input.close();
